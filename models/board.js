@@ -1,6 +1,12 @@
 // @ts-check
 'use strict'
 
+import createArray from '../utils/createArray.js'
+import map from '../utils/map.js'
+import partial from '../utils/partial.js'
+import random from '../utils/random.js'
+import compose from '../utils/compose.js'
+
 class Mine {}
 class Space {}
 
@@ -15,6 +21,7 @@ export default class BoardModel {
 	 * @param {number} mines Number of mines on the board
 	 */
 	constructor (width, height, mines) {
+		// TODO: use fillBoard inside createArray
 		const b = createArray(height, createArray(width, new Space()))
 		console.log(`array created with width ${width} height ${height} mines ${mines}`)
 		this.board = fillBoard(b, mines)
@@ -49,48 +56,3 @@ function fillBoard (board, mines) {
 	const placeMine = compose(mineOrCell, minusMine, yesNo)
 	return fillBoard(map(row => map(placeMine, row), board), mines)
 }
-
-/**
- * @param {number} size
- * @param {any} [initialValue]
- * @returns {any[]}
- */
-function createArray (size, initialValue) {
-	return map(_ => initialValue, new Array(size))
-}
-
-/**
- * @param {function} f
- * @param {any[]} list
- */
-function map (f, list) {
-	const max = list.length
-	const a = new Array(max)
-
-	console.log(`map called looping ${max} times`)
-	for (let i = 0; i < max; ++i) {
-		a[i]= f(list[i])
-	}
-
-	return a
-}
-
-
-function partial (f, ...args) {
-	return f.bind(null, ...args)
-}
-
-/**
- * @param {number} max
- */
-function random (max) {
-	return Math.round(Math.random() * max)
-}
-
-function compose (...fs) {
-	return initialValue => fs.reduceRight((value, f) => f(value), initialValue)
-}
-
-// 30
-// 16
-// 17

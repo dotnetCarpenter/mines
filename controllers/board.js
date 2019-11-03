@@ -1,7 +1,7 @@
 // @ts-check
 'use strict'
 
-export default class boardController {
+export default class BoardController {
 	/**
 	 * 
 	 * @param {BoardModel} board 
