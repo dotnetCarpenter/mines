@@ -1,0 +1,8 @@
+{
+  "name": "mines",
+  "version": "1.0.0",
+  "main": "tests/board.js",
+  "type": "module",
+  "author": "dotnetCarpenter <jon.ronnenberg@gmail.com>",
+  "license": "MIT"
+}
