@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+# test patterns
+# https://ss64.com/bash/test.html
+
+quiet=$1
+if [[ $quiet == "-q" ]] || [[ $quiet == "--quiet" ]]
+then
+  file=$2
+else
+  file=$1
+  unset -v quiet
+fi
+
+if [ -z $file ] || [ ! -e $file ]
+then
+  echo "Usage: ./run [-q|--quiet] file"
+  exit 1
+fi
+
+success="\r\nSuccessfully executed $file"
+failure="\r\n$file execution failed!"
+
+# TODO: check file name (.node-warnings) exist so we don't overwrite by accident
+# --redirect-warnings hides "(node:10328) ExperimentalWarning: The ESM module loader is experimental."
+execute="node --experimental-modules --redirect-warnings=.node-warnings $file"
+
+# echo $file
+# echo "*********"
+# echo $quiet
+if [[ -n $quiet ]]
+then
+  $execute >/dev/null 2>&1 && exit 0 || exit 1
+else
+  $execute && echo -e "$success" || echo -e "$failure"
+fi
+
+# clean up
+if [ -f "./.node-warnings" ]
+then
+  rm "./.node-warnings"
+fi
