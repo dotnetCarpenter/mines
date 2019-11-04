@@ -24,13 +24,16 @@ export default class BoardModel {
 	constructor (width, height, mines, log) {
 		this.mines = mines
 		this.percentageMines = mines / (width * height) * 100
+		this.log = log
 
 		const rows = createArray(width, _ => new Cell(new Space()), log)
-		const b = createArray(height, _ => rows, log)
+		this.board = createArray(height, _ => rows, log)
 
-		log(logMode.debug, `array created with width ${width} height ${height} mines ${mines}`)
+		log(logMode.debug, `board created with width ${width} height ${height} mines ${mines}`)
+	}
 
-		this.board = fillBoard(b, mines, log)
+	fillBoard () {
+		this.board = fillBoard(this.board, this.mines, this.log)
 	}
 }
 

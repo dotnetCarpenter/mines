@@ -8,12 +8,14 @@ export default class Game {
   constructor (mode) {
     this.mode = mode
   }
-  
+
   createBoard () {
     this.board = new BoardController(this, BoardView)
   }
-  
+
   startGame () {
+    // this.board.render()
+    this.board.board.fillBoard()
     this.board.render()
   }
-} 
+}
