@@ -18,7 +18,7 @@ export default function logger (mode) {
           console.warn(msg)
           break
 
-        case logMode.info:
+        case logMode.silence:
         case logMode.debug:
           console.log(msg)
           break

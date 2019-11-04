@@ -9,7 +9,7 @@ export default class BoardController {
 	 */
 	constructor (game, renderer) {
 		const log = logger(game.mode)
-		log(logMode.info, `Log mode is set to ${getKey(logMode, game.mode)}`)
+		log(logMode.silence, `Log mode is set to ${getKey(logMode, game.mode)}`)
 
     const board = new BoardModel(8, 8, 10, log)
     // const board = new BoardModel(16, 16, 40, log)

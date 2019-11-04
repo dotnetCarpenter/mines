@@ -9,25 +9,25 @@ const print = 'must print'
 const noPrint = 'no print'
 
 var log = logger(logMode.debug)
-log(logMode.info, print)
+log(logMode.silence, print)
 log(logMode.error, print)
 log(logMode.warning, print)
 log(logMode.debug, print)
 
 var log = logger(logMode.warning)
-log(logMode.info, print)
+log(logMode.silence, print)
 log(logMode.error, print)
 log(logMode.warning, print)
 log(logMode.debug, noPrint)
 
 var log = logger(logMode.error)
-log(logMode.info, print)
+log(logMode.silence, print)
 log(logMode.error, print)
 log(logMode.warning, noPrint)
 log(logMode.debug, noPrint)
 
 
-var log = logger(logMode.info)
+var log = logger(logMode.silence)
 log(logMode.info, print)
 log(logMode.error, noPrint)
 log(logMode.warning, noPrint)
