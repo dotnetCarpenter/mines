@@ -4,5 +4,5 @@
   "main": "tests/board.js",
   "type": "module",
   "author": "dotnetCarpenter <jon.ronnenberg@gmail.com>",
-  "license": "MIT"
+  "license": "GPL-3.0-or-later"
 }
