@@ -7,8 +7,15 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch Program",
+      "name": "File",
       "program": "${file}",
+      "runtimeArgs": ["--experimental-modules"]
+    }
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Game",
+      "program": "${workspaceFolder}/tests/game.js",
       "runtimeArgs": ["--experimental-modules"]
     }
   ]

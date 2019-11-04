@@ -6,9 +6,9 @@ import map from '../utils/map.js'
 import random from '../utils/random.js'
 import compose from '../utils/compose.js'
 import logMode from '../models/logMode.js'
-
-class Mine {}
-class Space {}
+import Cell from './Cell.js'
+import Mine from './Mine.js'
+import Space from './Space.js'
 
 /**
  * A board
@@ -25,7 +25,7 @@ export default class BoardModel {
 		this.mines = mines
 		this.percentageMines = mines / (width * height) * 100
 
-		const rows = createArray(width, _ => new Space(), log)
+		const rows = createArray(width, _ => new Cell(new Space()), log)
 		const b = createArray(height, _ => rows, log)
 
 		log(logMode.debug, `array created with width ${width} height ${height} mines ${mines}`)
@@ -37,11 +37,11 @@ export default class BoardModel {
 const bool = () => random(10) > 8
 
 const yesNo = cell => {
-	if (cell instanceof Space) return [cell, bool()]
+	if (cell.valueOf() instanceof Space) return [cell, bool()]
 	return [cell, false]
 }
 
-const mineOrCell = ([cell, bool]) => bool ? new Mine() : cell
+const mineOrCell = ([cell, bool]) => bool ? new Cell(new Mine()) : cell
 
 /**
  * @param {any[]} board
