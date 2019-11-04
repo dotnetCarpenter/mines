@@ -15,7 +15,7 @@ export default class GameController {
 
   startGame () {
     // this.board.render()
-    this.board.board.fillBoard()
+    this.board.fillBoard()
     this.board.render()
   }
 }

@@ -25,6 +25,6 @@ export default class BoardViewCli {
 }
 
 function renderCell (cell) {
-  if (cell.valueOf() instanceof Space) return ' '
-  if (cell.valueOf() instanceof Mine) return 'X'
+  if (cell instanceof Space) return ' '
+  if (cell instanceof Mine) return 'X'
 }

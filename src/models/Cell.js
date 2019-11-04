@@ -1,8 +1,6 @@
 export default class Cell {
-	constructor(cellItem) {
-		this.item = cellItem;
-	}
-	valueOf() {
-		return this.item;
+	constructor(board, log) {
+		this._board = board
+		this.log = log
 	}
 }
