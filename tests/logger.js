@@ -1,7 +1,6 @@
 // @ts-check
 'use strict'
 
-
 import logMode from '../src/models/logMode.js'
 import logger from '../src/utils/logger.js'
 

@@ -1,3 +1,4 @@
+// @ts-check
 'use strict'
 
 import logger from '../utils/logger.js'
@@ -7,8 +8,8 @@ import BoardModel from '../models/BoardModel.js'
 export default class BoardController {
 	/**
 	 * Creates a board with mines
-	 * @param {Game} game
-	 * @param {BoardView} view
+	 * @param game {import("./GameController")}
+	 * @param view {import("../views/BoardViewCli")}
 	 */
 	constructor (game, view) {
 		const log = logger(game.mode)

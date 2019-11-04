@@ -11,6 +11,7 @@
  * @returns {T[]} Array of what you want to repeat.
  */
 export default function repeat(x, times, accu = []) {
+  // TODO: why not use Array.fill?
   if (times === 0)
     return accu;
   accu.push(x);
