@@ -13,6 +13,7 @@ export default class BoardViewCli {
     const br = '\n'
     const top = repeat('_', board.board[0].length + 2).join('')
     const bottom = repeat('-', board.board[0].length + 2).join('')
+
     let stringBoard = top + br
 
     stringBoard += map(row => {

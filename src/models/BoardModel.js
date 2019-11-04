@@ -49,19 +49,14 @@ const mineOrCell = ([cell, bool]) =>
 
 /**
  * @typedef boardArgument
- * @property {any[]} board
- * @property {number} mines
- * @property {(arg0: number, arg1: string) => void} log
- */
-
-/**
- * @param {boardArgument[]} arg0
+ * @type {[any[], number, (arg0: number, arg1: string) => void]}
+ * @param {boardArgument}	parameter
  * @returns {any[]}
  */
 function fillBoard ([board, mines, log]) {
 	log(logMode.debug, `fillBoard called with ${mines} mines`)
 
-	if (mines === 0) return board
+	if (mines === 0) return [board, mines, log]
 
 	const minusMine = ([cell, bool]) => {
 		if (bool && mines) --mines
@@ -73,22 +68,20 @@ function fillBoard ([board, mines, log]) {
 
 	return fillBoard([
 		map(row =>
-			map(placeMine, row, log),
-			board,
-			log),
-		mines,
-		log])
+			map(placeMine, row, log)
+			, board, log)
+		, mines, log])
 }
 
 /**
  *
- * @param {any[]} board
+ * @param {boardArgument} parameter
  */
-function setNumbers (board) {
+function setNumbers ([board, mines, log]) {
 	return map(row =>
 		map(cell =>
 			cell instanceof Space
 				? cell.setNumber()
 				: cell
-				, row), board)
+				, row, log), board, log)
 }

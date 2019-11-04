@@ -4,10 +4,11 @@
 /**
  * Repeat `x` number of `times`, by appending to
  * `accu`. Returns `accu`.
- * @param {any} x
- * @param {number} times
- * @param {any[]} [accu]
- * @returns {any[]}
+ * @template T
+ * @param {T} x What you want to repeat.
+ * @param {number} times How many times to repeat. Negative values will throw.
+ * @param {T[]} [accu] Default is an empty array.
+ * @returns {T[]} Array of what you want to repeat.
  */
 export default function repeat(x, times, accu = []) {
   if (times === 0)
