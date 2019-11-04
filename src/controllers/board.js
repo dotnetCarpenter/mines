@@ -1,3 +1,5 @@
+'use strict'
+
 import logger from '../utils/logger.js'
 import logMode from '../models/logMode.js'
 import BoardModel from '../models/board.js'
