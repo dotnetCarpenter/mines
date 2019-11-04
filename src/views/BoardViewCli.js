@@ -6,7 +6,7 @@ import Space from "../models/Space.js"
 import Mine from "../models/Mine.js"
 import repeat from "../utils/repeat.js"
 
-export default class BoardView {
+export default class BoardViewCli {
   static render (board) {
     console.log(`Mines: ${board.mines}`, `Percentage mines: ${board.percentageMines.toFixed()}%`)
 

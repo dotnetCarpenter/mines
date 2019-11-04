@@ -1,16 +1,16 @@
 // @ts-check
 'use strict'
 
-import BoardController from '../controllers/board.js'
-import BoardView from '../views/boardCli.js'
+import BoardController from './BoardController.js'
+import BoardViewCli from '../views/BoardViewCli.js'
 
-export default class Game {
+export default class GameController {
   constructor (mode) {
     this.mode = mode
   }
 
   createBoard () {
-    this.board = new BoardController(this, BoardView)
+    this.board = new BoardController(this, BoardViewCli)
   }
 
   startGame () {

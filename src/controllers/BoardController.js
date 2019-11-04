@@ -2,7 +2,7 @@
 
 import logger from '../utils/logger.js'
 import logMode from '../models/logMode.js'
-import BoardModel from '../models/board.js'
+import BoardModel from '../models/BoardModel.js'
 
 export default class BoardController {
 	/**
