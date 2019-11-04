@@ -5,9 +5,10 @@ import BoardModel from '../models/board.js'
 export default class BoardController {
 	/**
 	 * Creates a board with mines
-	 * @param {BoardView} renderer
+	 * @param {Game} game
+	 * @param {BoardView} view
 	 */
-	constructor (game, renderer) {
+	constructor (game, view) {
 		const log = logger(game.mode)
 		log(logMode.debug, `Log mode is set to ${getKey(logMode, game.mode)}`)
 
@@ -16,11 +17,11 @@ export default class BoardController {
     const board = new BoardModel(30, 16, 99, log)
 
 		this.board = board
-		this.renderer = renderer
+		this.view = view
 	}
 
 	render () {
-		this.renderer.render(this.board)
+		this.view.render(this.board)
 	}
 }
 
