@@ -4,15 +4,21 @@
 // import assert from 'assert'
 
 import logMode from '../src/models/logMode.js'
-import logger from '../src/utils/logger.js'
-import BoardModel from '../src/models/BoardModel.js'
 import BoardController from '../src/controllers/BoardController.js'
 import BoardView from '../src/views/BoardViewCli.js'
 
-// const board = new BoardModel(8, 8, 10)
-const boardModel = new BoardModel(16, 16, 40, logger(logMode.silence))
-// const board = new BoardModel(30, 16, 99)
-let boardController = new BoardController(boardModel, BoardView)
+// const board = { width: 8,  height: 8, mines: 10 }
+// const board = { width: 16, height: 16, mines: 40 }
+// const board = { width: 30, height: 16, mines: 99 }
+const board = { width: 16, height: 16, mines: 99 }
+
+const boardController = new BoardController(
+  { mode: logMode.silence },
+  BoardView,
+  board.width,
+  board.height,
+  board.mines)
+
 boardController.render()
 boardController.fillBoard()
 boardController.render()

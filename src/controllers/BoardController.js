@@ -11,14 +11,11 @@ export default class BoardController {
 	 * @param game {import("./GameController")}
 	 * @param view {import("../views/BoardViewCli")}
 	 */
-	constructor (game, view) {
+	constructor (game, view, width, height, mines) {
 		const log = logger(game.mode)
 		log(logMode.warning, `Log mode is set to ${getKey(logMode, game.mode)}`)
 
-    this.model = new BoardModel(8, 8, 10, log)
-    // this.model = new BoardModel(16, 16, 40, log)
-		// this.model = new BoardModel(30, 16, 99, log)
-		// this.model = new BoardModel(16, 16, 99, log)
+    this.model = new BoardModel(width, height, mines, log)
 		this.view = view
 	}
 
