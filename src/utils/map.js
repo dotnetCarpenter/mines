@@ -15,7 +15,7 @@ export default function map(f, list, log) {
 	if (log) log(logMode.debug, `map called looping ${max} times`)
 
 	for (let i = 0; i < max; ++i) {
-		a[i] = f(list[i])
+		a[i] = f(list[i], i)
 	}
 	return a
 }

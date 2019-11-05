@@ -1,6 +1,5 @@
 export default class Cell {
-	constructor(board, log) {
-		this._board = board
+	constructor(log) {
 		this.log = log
 	}
 }

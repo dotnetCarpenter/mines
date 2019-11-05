@@ -25,10 +25,12 @@ export default class BoardModel {
 		this.percentageMines = mines / (width * height) * 100
 		this.log = log
 
-		const rows = createArray(width, _ => new Space(this, log), log)
-		this.board = createArray(height, _ => rows, log)
+		// const rows = createArray(width, _ => new Space(log), log)
+		this.board = createArray(height, _ =>
+			createArray(width, _ =>
+				new Space(log), log), log)
 
-		log(logMode.debug, `board created with width ${width} height ${height} mines ${mines}`)
+		log(logMode.warning, `board created with width ${width} height ${height} mines ${mines}`)
 	}
 
 	fillBoard () {
@@ -45,7 +47,7 @@ const yesNo = cell => {
 }
 
 const mineOrCell = ([cell, bool]) =>
-	bool ? new Mine(this) : cell
+	bool ? new Mine(cell.log) : cell
 
 /**
  * @typedef boardArgument
@@ -54,7 +56,7 @@ const mineOrCell = ([cell, bool]) =>
  * @returns {any[]}
  */
 function fillBoard ([board, mines, log]) {
-	log(logMode.debug, `fillBoard called with ${mines} mines`)
+	log(logMode.warning, `fillBoard called with ${mines} mines`)
 
 	if (mines === 0) return [board, mines, log]
 
@@ -77,11 +79,11 @@ function fillBoard ([board, mines, log]) {
  *
  * @param {boardArgument} parameter
  */
-function setNumbers ([board, mines, log]) {
-	return map(row =>
-		map(cell =>
+function setNumbers ([board, , log]) {
+	return map((row, y) =>
+		map((cell, x) =>
 			cell instanceof Space
-				? cell.setNumber()
+				? cell.setNumber(board, x, y)
 				: cell
 				, row, log), board, log)
 }
