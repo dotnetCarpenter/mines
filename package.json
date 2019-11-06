@@ -1,11 +1,12 @@
 {
   "name": "mines",
   "version": "1.0.0",
-  "main": "tests/board.js",
   "type": "module",
   "author": "dotnetCarpenter <jon.ronnenberg@gmail.com>",
   "license": "GPL-3.0-or-later",
+  "private": true,
+  "workspaces": ["mines-base", "mines-utils"],
   "scripts": {
-    "start": "./node_run tests/game.js"
+    "start": "./node_run mines-base/tests/game.js"
   }
 }

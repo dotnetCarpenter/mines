@@ -1,7 +1,7 @@
 // @ts-check
 'use strict'
 
-import logMode from '../models/logMode.js'
+import { logMode } from 'mines-base'
 
 /**
  * @param {function} f

@@ -2,7 +2,7 @@
 'use strict'
 
 import logMode from '../src/models/logMode.js'
-import logger from '../src/utils/logger.js'
+import { logger } from 'mines-utils'
 
 const print = 'must print'
 const noPrint = 'no print'

@@ -1,7 +1,6 @@
 import Cell from './Cell.js'
 import Mine from './Mine.js'
 import logMode from './logMode.js'
-import partial from '../utils/partial.js'
 
 export default class Space extends Cell {
   constructor (log) {

@@ -1,10 +1,10 @@
 // @ts-check
 'use strict'
 
-import map from "../utils/map.js"
+import { map } from 'mines-utils'
+import { repeat } from 'mines-utils'
 import Space from "../models/Space.js"
 import Mine from "../models/Mine.js"
-import repeat from "../utils/repeat.js"
 
 // const emojis = new Map()
 // emojis.set(0, '🏻')

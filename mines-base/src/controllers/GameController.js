@@ -14,11 +14,12 @@ export default class GameController {
   /**
    * Creates a new empty board.
    */
-  createBoard () {
-    // const board = { width: 8,  height: 8, mines: 10 }
+  createBoard (/* {width,height, mines} */) {
+    const board = { width: 8,  height: 8, mines: 10 }
     // const board = { width: 16, height: 16, mines: 40 }
-    const board = { width: 30, height: 16, mines: 99 }
+    // const board = { width: 30, height: 16, mines: 99 }
     // const board = { width: 16, height: 16, mines: 99 }
+    // const board = { width: 16, height: 16, mines: 255 }
 
     this.board = new BoardController(
       this,

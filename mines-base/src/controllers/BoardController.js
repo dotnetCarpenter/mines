@@ -1,7 +1,7 @@
 // @ts-check
 'use strict'
 
-import logger from '../utils/logger.js'
+import { logger } from 'mines-utils'
 import logMode from '../models/logMode.js'
 import BoardModel from '../models/BoardModel.js'
 

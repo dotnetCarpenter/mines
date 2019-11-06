@@ -1,0 +1,14 @@
+{
+  "name": "mines-base",
+  "version": "1.0.0",
+  "license": "GPL-3.0-or-later",
+  "main": "src/index.js",
+  "type": "module",
+  "devDependencies": {
+    "sinon": "^7.5.0"
+  },
+  "dependencies": {
+    "handlebars": "^4.5.1",
+    "mines-utils": "1.0.0"
+  }
+}

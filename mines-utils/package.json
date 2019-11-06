@@ -1,0 +1,10 @@
+{
+  "name": "mines-utils",
+  "version": "1.0.0",
+  "license": "GPL-3.0-or-later",
+  "main": "src/index.js",
+  "type": "module",
+  "dependencies": {
+    "mines-base": "1.0.0"
+  }
+}

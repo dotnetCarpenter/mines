@@ -23,7 +23,7 @@ failure="\r\n$file execution failed!"
 
 # TODO: check file name (.node-warnings) exist so we don't overwrite by accident
 # --redirect-warnings hides "(node:10328) ExperimentalWarning: The ESM module loader is experimental."
-execute="node --experimental-modules --redirect-warnings=.node-warnings $file"
+execute="node --experimental-modules --experimental-json-modules --redirect-warnings=.node-warnings $file"
 
 # echo $file
 # echo "*********"

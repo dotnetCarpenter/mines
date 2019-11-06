@@ -1,10 +1,10 @@
 // @ts-check
 'use strict'
 
-import createArray from '../utils/createArray.js'
-import map from '../utils/map.js'
-import random from '../utils/random.js'
-import compose from '../utils/compose.js'
+import { createArray } from 'mines-utils'
+import { map } from 'mines-utils'
+import { random } from 'mines-utils'
+import { compose } from 'mines-utils'
 import logMode from './logMode.js'
 import Mine from './Mine.js'
 import Space from './Space.js'
