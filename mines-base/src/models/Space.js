@@ -1,10 +1,11 @@
 import Cell from './Cell.js'
 import Mine from './Mine.js'
 import logMode from './logMode.js'
+import { log } from 'mines-utils'
 
 export default class Space extends Cell {
-  constructor (log) {
-    super(log)
+  constructor () {
+    super()
     this.x
     this.y
     this.value = 0
@@ -20,7 +21,7 @@ export default class Space extends Cell {
           ? ++accu
           : accu, 0)
 
-    this.log(logMode.debug, `setNumber(${x}, ${y}) with ${this.value} mines around`)
+    log(logMode.debug, `setNumber(${x}, ${y}) with ${this.value} mines around`)
 
     return this
   }

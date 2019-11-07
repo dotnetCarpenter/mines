@@ -1,10 +1,7 @@
 // @ts-check
 'use strict'
 
-import { createArray } from 'mines-utils'
-import { map } from 'mines-utils'
-import { random } from 'mines-utils'
-import { compose } from 'mines-utils'
+import { compose, createArray, log, map, random } from 'mines-utils'
 import logMode from './logMode.js'
 import Mine from './Mine.js'
 import Space from './Space.js'
@@ -18,23 +15,21 @@ export default class BoardModel {
 	 * @param {number} width Width of board.
 	 * @param {number} height Height of board.
 	 * @param {number} mines Number of mines on the board
-	 * @param {(arg0: number, arg1: string) => void} log
 	 */
-	constructor (width, height, mines, log) {
+	constructor (width, height, mines) {
 		this.mines = mines
 		this.percentageMines = mines / (width * height) * 100
-		this.log = log
 
 		// const rows = createArray(width, _ => new Space(log), log)
 		this.board = createArray(height, _ =>
 			createArray(width, _ =>
-				new Space(log), log), log)
+				new Space()))
 
 		log(logMode.warning, `board created with width ${width} height ${height} mines ${mines}`)
 	}
 
 	fillBoard () {
-		this.board = compose(setNumbers, fillBoard)([this.board, this.mines, this.log])
+		this.board = compose(setNumbers, fillBoard)([this.board, this.mines])
 		return this
 	}
 }
@@ -51,14 +46,14 @@ const mineOrCell = ([cell, bool]) =>
 
 /**
  * @typedef boardArgument
- * @type {[any[], number, (arg0: number, arg1: string) => void]}
+ * @type {[any[], number]}
  * @param {boardArgument}	parameter
  * @returns {any[]}
  */
-function fillBoard ([board, mines, log]) {
+function fillBoard ([board, mines]) {
 	log(logMode.warning, `fillBoard called with ${mines} mines`)
 
-	if (mines === 0) return [board, mines, log]
+	if (mines === 0) return [board, mines]
 
 	const minusMine = ([cell, bool]) => {
 		if (bool && mines) --mines
@@ -70,20 +65,21 @@ function fillBoard ([board, mines, log]) {
 
 	return fillBoard([
 		map(row =>
-			map(placeMine, row, log)
-			, board, log)
-		, mines, log])
+			map(placeMine, row)
+			, board)
+		, mines])
 }
 
 /**
  *
  * @param {boardArgument} parameter
+ * @returns {(Space|Mine)[][]}
  */
-function setNumbers ([board, , log]) {
+function setNumbers ([board]) {
 	return map((row, y) =>
 		map((cell, x) =>
 			cell instanceof Space
 				? cell.setNumber(board, x, y)
 				: cell
-				, row, log), board, log)
+				, row), board)
 }

@@ -3,7 +3,7 @@
 
 import breathFirst from './utils/breathFirst.js'
 import createArray from './utils/createArray.js'
-import logger from './utils/logger.js'
+import log from './utils/log.js'
 import observable from './utils/observable.js'
 import random from './utils/random.js'
 import compose from './utils/compose.js'
@@ -15,7 +15,7 @@ import repeat from './utils/repeat.js'
 export {
   breathFirst,
   createArray,
-  logger,
+  log,
   observable,
   random,
   compose,

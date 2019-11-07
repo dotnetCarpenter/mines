@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "type": "module",
   "devDependencies": {
+    "cross-env": "^6.0.3",
     "sinon": "^7.5.0"
   },
   "dependencies": {

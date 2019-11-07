@@ -1,8 +1,7 @@
 // @ts-check
 'use strict'
 
-import { map } from 'mines-utils'
-import { repeat } from 'mines-utils'
+import { map, repeat } from 'mines-utils'
 import Space from "../models/Space.js"
 import Mine from "../models/Mine.js"
 
@@ -49,8 +48,8 @@ export default class BoardViewCli {
 
     stringBoard += map(row =>
       emojis.get('| ') + map(cell =>
-        renderCell(cell), row, model.log).join('') + emojis.get(' |') + br
-        , model.board, model.log).join('')
+        renderCell(cell), row).join('') + emojis.get(' |') + br
+        , model.board).join('')
 
     stringBoard += bottom + br
 

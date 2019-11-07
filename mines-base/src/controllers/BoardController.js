@@ -1,21 +1,18 @@
 // @ts-check
 'use strict'
 
-import { logger } from 'mines-utils'
-import logMode from '../models/logMode.js'
 import BoardModel from '../models/BoardModel.js'
 
 export default class BoardController {
 	/**
 	 * Creates a board with mines
-	 * @param game {import("./GameController")}
-	 * @param view {import("../views/BoardViewCli")}
+	 * @param {import("../views/BoardViewCli")} view
+	 * @param {number} width
+	 * @param {number} height
+	 * @param {number} mines
 	 */
-	constructor (game, view, width, height, mines) {
-		const log = logger(game.mode)
-		log(logMode.warning, `Log mode is set to ${getKey(logMode, game.mode)}`)
-
-    this.model = new BoardModel(width, height, mines, log)
+	constructor (view, width, height, mines) {
+    this.model = new BoardModel(width, height, mines)
 		this.view = view
 	}
 
@@ -27,13 +24,5 @@ export default class BoardController {
 	fillBoard () {
 		this.model.fillBoard()
 		return this
-	}
-}
-
-function getKey (obj, value) {
-	for (let key in obj) {
-		if (obj.hasOwnProperty(key) && obj[key] === value) {
-			return key
-		}
 	}
 }

@@ -3,7 +3,6 @@
 
 // import assert from 'assert'
 
-import logMode from '../src/models/logMode.js'
 import BoardController from '../src/controllers/BoardController.js'
 import BoardView from '../src/views/BoardViewCli.js'
 
@@ -13,7 +12,6 @@ import BoardView from '../src/views/BoardViewCli.js'
 const board = { width: 16, height: 16, mines: 99 }
 
 const boardController = new BoardController(
-  { mode: logMode.silence },
   BoardView,
   board.width,
   board.height,

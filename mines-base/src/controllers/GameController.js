@@ -1,14 +1,19 @@
 // @ts-check
 'use strict'
 
+import { log } from 'mines-utils'
+import logMode from '../models/logMode.js'
 import BoardController from './BoardController.js'
 import BoardViewCli from '../views/BoardViewCli.js'
 
-export default class GameController {
+// TODO: make this universal js
+globalThis.MODE = Number(process.env.MODE || 1)
 
-  /** @param {number} mode */
-  constructor (mode) {
-    this.mode = mode
+export default class GameController {
+  constructor () {
+    this.board
+
+		log(logMode.warning, `Log mode is set to ${getKey(logMode, globalThis.MODE)}`)
   }
 
   /**
@@ -22,7 +27,6 @@ export default class GameController {
     // const board = { width: 16, height: 16, mines: 255 }
 
     this.board = new BoardController(
-      this,
       BoardViewCli,
       board.width,
       board.height,
@@ -41,4 +45,12 @@ export default class GameController {
     this.board.render()
     return this
   }
+}
+
+function getKey (obj, value) {
+	for (let key in obj) {
+		if (obj.hasOwnProperty(key) && obj[key] === value) {
+			return key
+		}
+	}
 }

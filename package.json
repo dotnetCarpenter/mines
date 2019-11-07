@@ -7,6 +7,7 @@
   "private": true,
   "workspaces": ["mines-base", "mines-utils"],
   "scripts": {
-    "start": "./node_run mines-base/tests/game.js"
+    "test": "cross-env MODE=4 ./node_run mines-base/tests/game.js",
+    "start": "./node_run mines-base/src/services/server.js"
   }
 }

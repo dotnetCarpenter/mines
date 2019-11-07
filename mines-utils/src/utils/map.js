@@ -2,17 +2,19 @@
 'use strict'
 
 import { logMode } from 'mines-base'
+import log from './log.js'
 
 /**
- * @param {function} f
- * @param {any[]} list
- * @param {function} [log]
+ * @template A,B
+ * @param {{(arg0: A, arg1: number):B}} f Callback
+ * @param {A[]} list Array-like
+ * @returns {B[]}
  */
-export default function map(f, list, log) {
+export default function map(f, list) {
 	const max = list.length
 	const a = new Array(max)
 
-	if (log) log(logMode.debug, `map called looping ${max} times`)
+	log(logMode.debug, `map called looping ${max} times`)
 
 	for (let i = 0; i < max; ++i) {
 		a[i] = f(list[i], i)
