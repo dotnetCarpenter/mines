@@ -8,5 +8,18 @@
 </head>
 <body>
   <h1>Welcome to {{title}}</h1>
+  <p>Mines: {{mines}} Percentage: {{percentageMines}}%</p>
+
+  <table>
+    {{#each board}}<tr>
+
+      {{#each row}}
+        <td>{{#emoji}}{{0}}{{/emoji}}</td>
+      {{/each}}
+
+    </tr>{{/each}}
+  </table>
+
+  <pre>{{table}}</pre>
 </body>
 </html>

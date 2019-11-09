@@ -5,13 +5,14 @@ import { logMode } from 'mines-base'
 
 /**
  * Log to stdout or stderror based on severity
- * and current environment MODE. If MODE = 1,
+ * and current environment MODE. If MODE = 0,
  * then this is a no-op.
  * @param {number} severity
  * @param {string} msg
  */
 export default function log (severity, msg) {
-  const mode = globalThis.MODE
+  // FIXME: `globalThis.MODE` shouldn't need a fallback value
+  const mode = Number(globalThis.MODE || process.env.MODE || 4)
 
   if (severity <= mode) {
     switch (severity) {
@@ -23,8 +24,7 @@ export default function log (severity, msg) {
         console.warn(msg)
         break
 
-      case logMode.silence:
-      case logMode.debug:
+      default:
         console.log(msg)
         break
     }

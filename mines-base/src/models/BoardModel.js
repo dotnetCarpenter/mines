@@ -42,7 +42,7 @@ const yesNo = cell => {
 }
 
 const mineOrCell = ([cell, bool]) =>
-	bool ? new Mine(cell.log) : cell
+	bool ? new Mine() : cell
 
 /**
  * @typedef boardArgument

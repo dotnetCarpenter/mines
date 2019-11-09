@@ -6,9 +6,14 @@ import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { dirname } from 'path'
-import { partial } from 'mines-utils'
-// @ts-ignore
-import pkg from '../../../package.json'
+import logMode from '../models/logMode.js'
+import { partial, log } from 'mines-utils'
+
+import PostBackController from '../controllers/PostBackController.js'
+
+const router = {
+  '/': new PostBackController()
+}
 
 // @ts-ignore
 const __filename = fileURLToPath(import.meta.url)
@@ -21,16 +26,16 @@ const server = http2.createSecureServer({
   key: fs.readFileSync(keysPath('localhost-privkey.pem')),
   cert: fs.readFileSync(keysPath('localhost-cert.pem'))
 })
-server.on('error', (err) => console.error(err))
+
+server.on('error', (err) => log(logMode.error, err))
 
 server.on('stream', (stream, headers) => {
-  // stream is a Duplex
-  stream.respond({
-    'content-type': 'text/html',
-    ':status': 200
-  })
-  stream.end(`<h1>Welcome to ${pkg.name}</h1>`)
+  const controller = router[headers[":path"]]
+
+  controller.response(stream, headers)
+
+  if (!stream.closed) stream.end(controller.end())
 })
 
 server.listen(8443)
-console.log('listening on https://localhost:8443')
+log(logMode.info, 'listening on https://localhost:8443')
