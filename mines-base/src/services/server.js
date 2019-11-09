@@ -11,9 +11,21 @@ import { partial, log } from 'mines-utils'
 
 import PostBackController from '../controllers/PostBackController.js'
 
-const router = {
-  '/': new PostBackController()
-}
+
+// @ts-ignore
+const router = new Map([
+  ['404', {
+    response (stream, headers) {
+      stream.respond({
+        'content-type': 'text/html',
+        ':status': 404
+      })
+      stream.end('<h1>404 Not found</h1>')
+      stream.close()
+    }
+  }],
+  ['/', new PostBackController()]
+])
 
 // @ts-ignore
 const __filename = fileURLToPath(import.meta.url)
@@ -30,7 +42,8 @@ const server = http2.createSecureServer({
 server.on('error', (err) => log(logMode.error, err))
 
 server.on('stream', (stream, headers) => {
-  const controller = router[headers[":path"]]
+  const path = headers[":path"]
+  const controller = router.has(path) ? router.get(path) : router.get('404')
 
   controller.response(stream, headers)
 

@@ -26,9 +26,4 @@ export default class PostBackView {
   }
 }
 
-function emoji (options) {
-  console.log(this.codePointAt(0))
-  // return this === '💣' ? '&#x1F4A3;' : this
-  // return this.codePointAt(new Handlebars.SafeString(this))
-  return `<a href="#">${this}</a>`.normalize('NFC')
-}
+function emoji () { return this }
