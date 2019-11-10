@@ -20,7 +20,8 @@ export default class GameController {
    * Creates a new empty board.
    */
   createBoard (/* {width,height, mines} */) {
-    const board = { width: 4,  height: 8, mines: 10 }
+    // const board = { width: 2,  height: 2, mines: 1 }
+    const board = { width: 8,  height: 8, mines: 10 }
     // const board = { width: 16, height: 16, mines: 40 }
     // const board = { width: 30, height: 16, mines: 99 }
     // const board = { width: 16, height: 16, mines: 99 }

@@ -4,7 +4,6 @@
 import { map } from 'mines-utils'
 import Space from "./Space.js"
 import Mine from "./Mine.js"
-
 export default class PostBackModel {
   constructor (model) {
     this.title = 'Mines'
@@ -14,12 +13,8 @@ export default class PostBackModel {
     this.height = model.board.length
 
     this.board = map(row =>
-      ({
-        row: map(cell =>
-          renderCell(cell), row)
-      }), model.board)
-
-    this.table = JSON.stringify(this.board, null, 4)
+      map(cell =>
+        renderCell(cell), row), model.board)
   }
 }
 

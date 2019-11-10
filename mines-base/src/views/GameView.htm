@@ -11,15 +11,17 @@
   <p>Mines: {{mines}} Percentage: {{percentageMines}}%</p>
 
   <table>
-    {{#each board}}<tr>
-
-      {{#each row}}
-        <td>{{#emoji}}{{0}}{{/emoji}}</td>
-      {{/each}}
-
-    </tr>{{/each}}
+    {{#each board as |row|}}
+      <tr>
+        {{#each row as |cell|}}
+          <td>
+            {{cell}}
+          </td>
+        {{/each}}
+      </tr>
+    {{/each}}
   </table>
 
-  <pre>{{table}}</pre>
+  <pre>{{#json board}}{{/json}}</pre>
 </body>
 </html>

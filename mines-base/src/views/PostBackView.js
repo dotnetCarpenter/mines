@@ -9,9 +9,9 @@ import Handlebars from 'handlebars'
 
 // @ts-ignore
 const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename);
+const __dirname = dirname(__filename)
 
-Handlebars.registerHelper('emoji', emoji)
+Handlebars.registerHelper('json', x => JSON.stringify(x, null, 4))
 
 export default class PostBackView {
   constructor() {
@@ -25,5 +25,3 @@ export default class PostBackView {
     return this.view(data)
   }
 }
-
-function emoji () { return this }

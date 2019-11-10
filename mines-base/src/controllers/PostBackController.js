@@ -18,12 +18,13 @@ export default class PostBackController {
 
   constructor () {
     this.game = new GameController()
-    this.view = new PostBackView()
+    // this.view = new PostBackView()
   }
 
   response (stream, headers) {
     log(logMode.debug, 'PostBackController::response')
 
+    const view = new PostBackView()
     let board = this.game.createBoard().startGame()
 
     // stream is a Duplex
@@ -33,7 +34,7 @@ export default class PostBackController {
     })
 
     stream.end(
-      this.view.render(new PostBackModel(board.board.model))
+      view.render(new PostBackModel(board.board.model))
     )
 
     stream.close()
