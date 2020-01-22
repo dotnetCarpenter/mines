@@ -21,8 +21,8 @@ export default class PostBackController {
     // this.view = new PostBackView()
   }
 
-  response (stream, headers) {
-    log(logMode.debug, 'PostBackController::response')
+  main (stream, headers) {
+    log(logMode.debug, 'PostBackController::main')
 
     const view = new PostBackView()
     let board = this.game.createBoard().startGame()
@@ -38,9 +38,5 @@ export default class PostBackController {
     )
 
     stream.close()
-  }
-
-  end () {
-    log(logMode.warning, 'PostBackController::end Should never be called')
   }
 }

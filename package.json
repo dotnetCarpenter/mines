@@ -5,9 +5,13 @@
   "author": "dotnetCarpenter <jon.ronnenberg@gmail.com>",
   "license": "GPL-3.0-or-later",
   "private": true,
-  "workspaces": ["mines-base", "mines-utils"],
+  "workspaces": [
+    "mines-base",
+    "mines-utils",
+    "mines-web-node"
+  ],
   "scripts": {
     "test": "cross-env MODE=4 ./node_run mines-base/tests/game.js",
-    "start": "cross-env MODE=8 ./node_run mines-base/src/services/server.js"
+    "start": "cross-env MODE=8 ./node_run mines-web-node/services/server.js"
   }
 }

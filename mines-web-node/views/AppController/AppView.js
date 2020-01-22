@@ -1,26 +1,26 @@
 // @ts-check
 'use strict'
 
-import fs from 'fs'
+import BaseView from '../BaseView.js'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { dirname } from 'path'
-import Handlebars from 'handlebars'
 
 // @ts-ignore
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
-Handlebars.registerHelper('json', x => JSON.stringify(x, null, 4))
-
-export default class PostBackView {
+export default class AppView extends BaseView {
   constructor() {
-    this.view = Handlebars.compile(
-      fs.readFileSync(
-        path.join(__dirname, './GameView.htm'),
-        'utf8'))
+    super()
+    this.view = this.compileTemplate(
+      this.readFile(
+        path.join(__dirname, './main.html')))
   }
 
+  /**
+   * @param {import("../../models/AppModel.js").default} data
+   */
   render (data) {
     return this.view(data)
   }

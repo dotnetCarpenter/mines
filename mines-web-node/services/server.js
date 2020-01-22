@@ -6,16 +6,21 @@ import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { dirname } from 'path'
-import logMode from '../models/logMode.js'
+import { logMode } from 'mines-base'
 import { partial, log } from 'mines-utils'
 
-import PostBackController from '../controllers/PostBackController.js'
+import AppController from '../controllers/AppController.js'
+// import PostBackController from 'mines-base/src/controllers/PostBackController'
 
 
 // @ts-ignore
 const router = new Map([
   ['404', {
-    response (stream, headers) {
+    /**
+     * @param {http2.ServerHttp2Stream} stream
+     * @param {http2.IncomingHttpHeaders} headers
+     */
+    main (stream, headers) {
       stream.respond({
         'content-type': 'text/html',
         ':status': 404
@@ -24,14 +29,15 @@ const router = new Map([
       stream.close()
     }
   }],
-  ['/', new PostBackController()]
+  // ['/game', new PostBackController()],
+  ['/', new AppController()]
 ])
 
 // @ts-ignore
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename);
 
-const keysFolder = '../../../encryption/'
+const keysFolder = '../../encryption/'
 const keysPath = partial(path.join, __dirname, keysFolder)
 
 const server = http2.createSecureServer({
@@ -45,9 +51,7 @@ server.on('stream', (stream, headers) => {
   const path = headers[":path"]
   const controller = router.has(path) ? router.get(path) : router.get('404')
 
-  controller.response(stream, headers)
-
-  if (!stream.closed) stream.end(controller.end())
+  controller.main(stream, headers)
 })
 
 server.listen(8443)

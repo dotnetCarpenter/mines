@@ -7,10 +7,14 @@ quiet=$1
 if [[ $quiet == "-q" ]] || [[ $quiet == "--quiet" ]]
 then
   file=$2
+  MODE=8
 else
   file=$1
   unset -v quiet
+  MODE=4
 fi
+
+echo "MODE: $MODE"
 
 if [ -z $file ] || [ ! -e $file ]
 then

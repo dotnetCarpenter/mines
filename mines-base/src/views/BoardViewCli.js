@@ -37,7 +37,7 @@ emojis.set('_', '___')
 emojis.set('-', '---')
 
 export default class BoardViewCli {
-  static render (model) {
+  render (model) {
     console.log(`Mines: ${model.mines}`, `Percentage mines: ${model.percentageMines.toFixed()}%`)
 
     const br = '\n'

@@ -6,7 +6,7 @@ import BoardModel from '../models/BoardModel.js'
 export default class BoardController {
 	/**
 	 * Creates a board with mines
-	 * @param {import("../views/BoardViewCli")} view
+	 * @param {import("../views/BoardViewCli.js")} view
 	 * @param {number} width
 	 * @param {number} height
 	 * @param {number} mines
