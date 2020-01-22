@@ -8,7 +8,8 @@
   "workspaces": [
     "mines-base",
     "mines-utils",
-    "mines-web-node"
+    "mines-web-node",
+    "mines-restart"
   ],
   "scripts": {
     "test": "cross-env MODE=4 ./node_run mines-base/tests/game.js",

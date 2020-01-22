@@ -12,12 +12,12 @@ else
   file=$1
   unset -v quiet
   MODE=4
+  echo "MODE: $MODE"
 fi
-
-echo "MODE: $MODE"
 
 if [ -z $file ] || [ ! -e $file ]
 then
+  echo "File not found"
   echo "Usage: ./run [-q|--quiet] file"
   exit 1
 fi
