@@ -11,9 +11,11 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
 export default class AppView extends BaseView {
+  #view
+
   constructor() {
     super()
-    this.view = this.compileTemplate(
+    this.#view = this.compileTemplate(
       this.readFile(
         path.join(__dirname, './index.htm')))
   }
@@ -22,6 +24,6 @@ export default class AppView extends BaseView {
    * @param {import("../../models/AppModel.js").default} data
    */
   render (data) {
-    return this.view(data)
+    return this.#view(data)
   }
 }

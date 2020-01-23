@@ -1,9 +1,10 @@
 // @ts-check
 'use strict'
 
-import { map } from 'mines-utils'
 import AppModel from '../models/AppModel.js'
 import AppView from '../views/AppController/AppView.js'
+import GameController from './GameController.js'
+// import { map } from 'mines-utils'
 
 export default class AppController {
   #view
@@ -12,7 +13,12 @@ export default class AppController {
   constructor () {
     const title = 'Mines'
     // TODO: Can we put controllers in our model?
-    const games = []
+    const games = [
+      new GameController({ width: 8, height: 8, mines: 10 }),
+      new GameController({ width: 16, height: 16, mines: 40 }),
+      new GameController({ width: 30, height: 16, mines: 99 }),
+      new GameController({ width: 16, height: 16, mines: 255 }),
+    ]
 
     this.#view = new AppView()
     this.#model = new AppModel({ title, games })
@@ -25,6 +31,7 @@ export default class AppController {
    */
   main (stream, headers) {
     console.log('AppController::main')
+    console.warn('path', headers[':path'])
 
     // stream is a Duplex
     stream.respond({

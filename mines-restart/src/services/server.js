@@ -4,15 +4,10 @@
 import http2 from 'http2'
 import fs from 'fs'
 import path from 'path'
-import { fileURLToPath } from 'url'
 import { dirname } from 'path'
-import { partial } from 'mines-utils'
+import { partial, nodejs } from 'mines-utils'
+import userRoutes from './router.js'
 
-import AppController from '../controllers/AppController.js'
-// import PostBackController from 'mines-base/src/controllers/PostBackController'
-
-
-// @ts-ignore
 const router = new Map([
   ['404', {
     /**
@@ -27,15 +22,14 @@ const router = new Map([
       stream.end('<h1>404 Not found</h1>')
       stream.close()
     }
-  }],
-  // ['/game', new PostBackController()],
-  ['/', new AppController()]
+  }]
 ])
 
 // @ts-ignore
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename);
+userRoutes.forEach(pair => router.set(...pair))
 
+// @ts-ignore
+const __dirname = dirname(nodejs.filename(import.meta.url))
 const keysFolder = '../../../encryption/'
 const keysPath = partial(path.join, __dirname, keysFolder)
 

@@ -7,6 +7,13 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "Restart",
+      "program": "${workspaceFolder}/mines-restart/src/services/server.js",
+      "runtimeArgs": ["--experimental-modules"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "Server",
       "program": "${workspaceFolder}/mines-web-node/services/server.js",
       "runtimeArgs": ["--experimental-modules"]
