@@ -6,13 +6,16 @@ import AppModel from '../models/AppModel.js'
 import AppView from '../views/AppController/AppView.js'
 
 export default class AppController {
+  #view
+  #model
+
   constructor () {
     const title = 'Mines'
     // TODO: Can we put controllers in our model?
     const games = []
 
-    this.view = new AppView()
-    this.model = new AppModel({ title, games })
+    this.#view = new AppView()
+    this.#model = new AppModel({ title, games })
   }
 
   /**
@@ -30,7 +33,7 @@ export default class AppController {
     })
 
     stream.end(
-      this.view.render(this.model)
+      this.#view.render(this.#model)
     )
   }
 }

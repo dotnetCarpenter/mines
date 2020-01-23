@@ -15,7 +15,7 @@ export default class AppView extends BaseView {
     super()
     this.view = this.compileTemplate(
       this.readFile(
-        path.join(__dirname, './main.html')))
+        path.join(__dirname, './index.htm')))
   }
 
   /**
