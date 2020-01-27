@@ -1,6 +1,8 @@
+// @ts-check
+'use strict'
+
 import { each, compose, curry } from 'mines-utils'
 
-// @ts-check
 
 const TOKEN = {
   EMPTY: 0,
@@ -8,8 +10,6 @@ const TOKEN = {
   SEARCH: 2,
   SEARCHPARAMS: 4
 }
-
-const EMPTY_TOKEN = { type: TOKEN.EMPTY, val: '' }
 
 /**
  * @param {string} input
@@ -35,6 +35,20 @@ export default function parser (input) {
   return url
 }
 
+const matcher = curry(matchTerm)
+const pathname = matcher(
+  term => term.startsWith('/'),
+  term => ({ type: TOKEN.PATHNAME, val: term })
+)
+const search = matcher(
+  term => term.startsWith('?'),
+  term => ({ type: TOKEN.SEARCH, val: term })
+)
+const searchParams = matcher(
+  term => /(&|\?)\w+=./.test(term),
+  term => ({ type: TOKEN.SEARCHPARAMS, val: term.slice(1) })
+)
+
 /**
  * @param {string} term
  */
@@ -55,10 +69,10 @@ function lexer (term) {
   })
 
   const groupTokenizer = compose(
-    curry(pathname)(cursor),
-    curry(search)(cursor))
+    pathname(cursor),
+    search(cursor))
 
-  const innerTokenizer = compose(curry(searchParams)(cursor))
+  const innerTokenizer = searchParams(cursor)
 
   const tokenizer = compose(
     tokens => incrementor(innerTokenizer, cursor, tokens),
@@ -69,9 +83,7 @@ function lexer (term) {
     tokens => incrementor(groupTokenizer, cursor, tokens)
   )
 
-  const tokens = tokenizer([])
-
-  return tokens
+  return tokenizer([])
 }
 
 function incrementor (f, cursor, tokens) {
@@ -81,28 +93,9 @@ function incrementor (f, cursor, tokens) {
   return incrementor(f, cursor, f(tokens))
 }
 
-function pathname (cursor, tokens) {
-  const t = cursor.term
-  if (t.startsWith('/')) {
-    tokens.push({ type: TOKEN.PATHNAME, val: t })
-    cursor.flush()
-  }
-  return tokens
-}
-
-function search (cursor, tokens) {
-  const t = cursor.term
-  if (t.startsWith('?')) {
-    tokens.push({ type: TOKEN.SEARCH, val: cursor.term })
-    cursor.flush()
-  }
-  return tokens
-}
-
-function searchParams (cursor, tokens) {
-  const t = cursor.term
-  if (/(&|\?)\w+=./.test(t)) {
-    tokens.push({ type: TOKEN.SEARCHPARAMS, val: cursor.term.slice(1) })
+function matchTerm (matcher, map, cursor, tokens) {
+  if (matcher(cursor.term)) {
+    tokens.push(map(cursor.term))
     cursor.flush()
   }
   return tokens
