@@ -5,7 +5,7 @@ import http2 from 'http2'
 import fs from 'fs'
 import path from 'path'
 import { dirname } from 'path'
-import { partial, nodejs } from 'mines-utils'
+import { partial, nodejs, each } from 'mines-utils'
 import userRoutes from './router.js'
 
 const router = new Map([
@@ -25,8 +25,12 @@ const router = new Map([
   }]
 ])
 
-// @ts-ignore
-userRoutes.forEach(pair => router.set(...pair))
+if (userRoutes instanceof Map) {
+  userRoutes.forEach((value, key) => router.set(key, value))
+} else if (Array.isArray(userRoutes)) {
+  // TODO: ts-bug
+  each(pair => router.set(...pair), userRoutes)
+}
 
 // @ts-ignore
 const __dirname = dirname(nodejs.filename(import.meta.url))

@@ -1,8 +1,8 @@
 // @ts-check
-'use strict'
 
 import { logMode } from 'mines-base'
 import log from './log.js'
+import each from './each.js'
 
 /**
  * @template A,B
@@ -11,13 +11,13 @@ import log from './log.js'
  * @returns {B[]}
  */
 export default function map(f, list) {
-	const max = list.length
-	const a = new Array(max)
+	const a = new Array(list.length)
 
-	log(logMode.debug, `map called looping ${max} times`)
+	log(logMode.debug, `map called looping ${list.length} times`)
 
-	for (let i = 0; i < max; ++i) {
-		a[i] = f(list[i], i)
-	}
+	each((value, index) => {
+		a[index] = value
+	}, list)
+
 	return a
 }
