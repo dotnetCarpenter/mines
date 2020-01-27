@@ -4,13 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>{{title}}</title>
+  <title>{{title}} version {{version}}</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <h1>Welcome to {{title}}</h1>
 
-  {{#each games as |game|}}
-  <pre>{{#json game}}{{/json}}</pre>
+  {{#each gameTiles as |game|}}
+    <!-- {{#json game}}{{/json}} -->
+    {{> gameTile}}
   {{/each}}
 </body>
 </html>

@@ -8,23 +8,18 @@ import { nodejs } from 'mines-utils'
 // @ts-ignore
 const __dirname = path.dirname(nodejs.filename(import.meta.url))
 
-export default class AppView extends BaseView {
+export default class GameView extends BaseView {
   #view
 
   constructor() {
     super()
-
-    this.registerPartial('gameTile',
-      this.readFile(
-        path.join(__dirname, './GameTile.htm')))
-
     this.#view = this.compileTemplate(
       this.readFile(
-        path.join(__dirname, './AppView.htm')))
+        path.join(__dirname, './GameView.htm')))
   }
 
   /**
-   * @param {import("../../models/AppModel.js").default} data
+   * @param {import("../../models/GameModel.js").default} data
    */
   render (data) {
     return this.#view(data)

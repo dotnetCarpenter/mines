@@ -1,11 +1,10 @@
 // @ts-check
 'use strict'
 
-// import { compose, log, map } from 'mines-utils'
-
 export default class AppModel {
-  constructor ({title, games}) {
+  constructor ({title, gameTiles/* , version */}) {
     this.title = title
-    this.games = games
+    this.gameTiles = gameTiles
+    // this.version = version
   }
 }

@@ -22,4 +22,13 @@ export default class BaseView {
   compileTemplate (template) {
     return Handlebars.compile(template)
   }
+
+  /**
+   * Register a partial template to use with the current model.
+   * @param {string} name The name of the partial
+   * @param {string} template
+   */
+  registerPartial (name, template) {
+    Handlebars.registerPartial(name, template)
+  }
 }

@@ -7,6 +7,7 @@ import path from 'path'
 import { dirname } from 'path'
 import { partial, nodejs, each } from 'mines-utils'
 import userRoutes from './router.js'
+import parser from './parser.js'
 
 const router = new Map([
   ['404', {
@@ -26,6 +27,7 @@ const router = new Map([
 ])
 
 if (userRoutes instanceof Map) {
+  // TODO: ts-bug
   userRoutes.forEach((value, key) => router.set(key, value))
 } else if (Array.isArray(userRoutes)) {
   // TODO: ts-bug
@@ -45,10 +47,14 @@ const server = http2.createSecureServer({
 server.on('error', (err) => console.error(err))
 
 server.on('stream', (stream, headers) => {
-  const path = headers[":path"]
-  const controller = router.has(path) ? router.get(path) : router.get('404')
+  const url = parser(headers[":path"])
+  console.log('path', url)
 
-  controller.main(stream, headers)
+  const controller = router.has(url.pathname) ? router.get(url.pathname) : router.get('404')
+
+  controller.main(stream, headers, url)
+
+  if(!stream.writableEnded) stream.end()
 })
 
 server.listen(8443)
