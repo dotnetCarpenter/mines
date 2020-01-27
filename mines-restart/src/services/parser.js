@@ -1,4 +1,4 @@
-import { each } from 'mines-utils'
+import { each, compose, curry } from 'mines-utils'
 
 // @ts-check
 
@@ -9,6 +9,8 @@ const TOKEN = {
   SEARCHPARAMS: 4
 }
 
+const EMPTY_TOKEN = { type: TOKEN.EMPTY, val: '' }
+
 /**
  * @param {string} input
  */
@@ -17,7 +19,8 @@ export default function parser (input) {
   const url = {
     pathname: '',
     search: '',
-    searchParams: new Map
+    searchParams: new Map,
+    href: input
   }
 
   each(t => {
@@ -36,60 +39,71 @@ export default function parser (input) {
  * @param {string} term
  */
 function lexer (term) {
-  const tokens = []
-  let counter = term.length
-
-  for (let i = counter - 1; i > -1; --i) {
-    const token = tokenizer(term.substring(i, counter))
-
-    switch (token.type) {
-      case TOKEN.EMPTY: break
-      case TOKEN.SEARCHPARAMS:
-        token.val = token.val.slice(1)
-        tokens.push(token)
-        counter = i
-        break
-      case TOKEN.SEARCH:
-        const ts = lexer('&' + token.val.slice(1))
-        tokens.push(token)
-        tokens.push(...ts)
-        counter = i
-        break
-      case 1:
-      default:
-        counter = i
-        tokens.push(token)
+  const cursor = Object.seal({
+    endIndex: term.length,
+    startIndex: term.length,
+    get term() {
+      return term.substring(this.startIndex, this.endIndex)
+    },
+    reset () {
+      this.endIndex = term.length
+      this.startIndex = term.length
+    },
+    flush () {
+      this.endIndex = this.startIndex
     }
-  }
+  })
+
+  const groupTokenizer = compose(
+    curry(pathname)(cursor),
+    curry(search)(cursor))
+
+  const innerTokenizer = compose(curry(searchParams)(cursor))
+
+  const tokenizer = compose(
+    tokens => incrementor(innerTokenizer, cursor, tokens),
+    tokens => {
+      cursor.reset()
+      return tokens
+    },
+    tokens => incrementor(groupTokenizer, cursor, tokens)
+  )
+
+  const tokens = tokenizer([])
 
   return tokens
 }
 
-function tokenizer (term) {
-  let token = { val: '', type: TOKEN.EMPTY }
+function incrementor (f, cursor, tokens) {
+  if (cursor.startIndex > 0) cursor.startIndex--
+  else return tokens
 
-  switch (term) {
-    case pathname(term):
-      token.type = TOKEN.PATHNAME; break
-    case searchParams(term):
-      token.type = TOKEN.SEARCHPARAMS; break
-    case search(term):
-      token.type = TOKEN.SEARCH; break
+  return incrementor(f, cursor, f(tokens))
+}
+
+function pathname (cursor, tokens) {
+  const t = cursor.term
+  if (t.startsWith('/')) {
+    tokens.push({ type: TOKEN.PATHNAME, val: t })
+    cursor.flush()
   }
-
-  if (token.type !== TOKEN.EMPTY) token.val = term
-
-  return token
+  return tokens
 }
 
-function pathname (term) {
-  return term.startsWith('/') && term
+function search (cursor, tokens) {
+  const t = cursor.term
+  if (t.startsWith('?')) {
+    tokens.push({ type: TOKEN.SEARCH, val: cursor.term })
+    cursor.flush()
+  }
+  return tokens
 }
 
-function search (term) {
-  return term.startsWith('?') && term
-}
-
-function searchParams (term) {
-  return /&\w+=./.test(term) && term
+function searchParams (cursor, tokens) {
+  const t = cursor.term
+  if (/(&|\?)\w+=./.test(t)) {
+    tokens.push({ type: TOKEN.SEARCHPARAMS, val: cursor.term.slice(1) })
+    cursor.flush()
+  }
+  return tokens
 }
