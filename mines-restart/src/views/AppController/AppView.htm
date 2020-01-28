@@ -10,9 +10,22 @@
 <body>
   <h1>Welcome to {{title}}</h1>
 
-  {{#each gameTiles as |game|}}
-    <!-- {{#json game}}{{/json}} -->
-    {{> gameTile}}
-  {{/each}}
+  <!-- <div id="container">
+    <div>
+      Item as wide as the content, but at most 300 pixels.
+    </div>
+    <div>
+      Item with flexible width but a minimum of 200 pixels.
+    </div>
+    <div>
+      Inflexible item of 150 pixels width.
+    </div>
+  </div> -->
+
+  <article class="container">
+    {{#each gameTiles}}
+      {{> gameTile}}
+    {{/each}}
+  </article>
 </body>
 </html>

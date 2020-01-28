@@ -31,7 +31,7 @@ export default class AppController {
    * @param {?any} url
    */
   main (stream, header, url) {
-    console.log('AppController::main')
+    // console.log('AppController::main')
 
     // stream is a Duplex
     stream.respond({
