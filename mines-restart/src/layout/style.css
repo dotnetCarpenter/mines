@@ -23,42 +23,31 @@ body {
 
 .container {
   display: grid;
-  grid-template-columns: repeat(2, minmax(min-content, 40vh));
-  grid-template-rows: repeat(2, minmax(min-content, 40vh));
+  grid-template-columns: repeat(2, minmax(10rem, 50%));
+  grid-template-rows: repeat(2, minmax(10rem, 1fr)  );
   grid-gap: var(--margin-game-tile);
 
-  width: 100%;
+  text-align: center;
 }
 
 @media (max-width: 80vh) {
   .container {
-    grid-template-columns: repeat(2, minmax(min-content, 40vw));
-    grid-template-rows: repeat(2, minmax(min-content, 40vw));
+    grid-template-columns: repeat(2, minmax(10rem, 40vw));
+    grid-template-rows: repeat(2, minmax(10rem, 40vw));
   }
 }
 
 .game-tile {
   background-color: #eee;
   border: 1px darkgrey solid;
-}
-.game-tile__headline {
-}
-.game-tile__subline {
+  min-width: 10rem;
+  min-height: 10rem;
 
+  color: rgb(44, 44, 44);
+  text-decoration: none;
 }
-
-#container {
-  display: grid;
-  grid-template-columns: minmax(min-content, 300px) minmax(200px, 1fr) 150px;
-  grid-gap: 5px;
-  box-sizing: border-box;
-  height: 200px;
-  width: 100%;
-  background-color: #8cffa0;
-  padding: 10px;
-}
-
-#container > div {
-  background-color: #8ca0ff;
-  padding: 5px;
+.game-tile__headline {}
+.game-tile__subline {}
+.game-tile__mines {
+  font-weight: bold;
 }
