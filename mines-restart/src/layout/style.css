@@ -1,8 +1,3 @@
-:root {
-  --margin-body: .8rem;
-  --margin-game-tile: 1rem;
-}
-
 html {
   box-sizing: border-box;
   font-size: 62.5%;
@@ -13,7 +8,7 @@ html {
 }
 
 body {
-  margin: var(--margin-body);
+  margin: .8rem;
   padding: 0;
 
   font-size: 1.6rem;
@@ -29,27 +24,47 @@ body {
 }
 
 .game-tile {
-  flex: 1 1 10rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
 
-  min-height: 10rem;
+  flex: 1 1 40vh;
+
+  min-height: 40vh;
   margin: 1rem;
 
   color: rgb(44, 44, 44);
+  font-size: 1.6em;
   text-decoration: none;
 
   background-color: #eee;
   border: 1px darkgrey solid;
 
-  transition: box-shadow 300ms ease-out, background-color 250ms ease-out;
+  transition: all 300ms ease-out;
 }
 .game-tile:hover,
+.game-tile:active,
 .game-tile:focus {
   background-color: #fff;
 
   box-shadow: .2rem .2rem .2rem .1rem rgba(0, 0, 0, 0.2);
 }
-/* .game-tile__headline {}
-.game-tile__subline {} */
+.game-tile:active {
+  color: white;
+  background-color: rgb(102, 141, 76);
+}
+.game-tile__headline,
+.game-tile__subline {
+  position: absolute;
+  height: 50%;
+  width: 100%;
+}
+.game-tile__headline {
+  bottom: 0;
+}
+.game-tile__subline {
+  bottom: -2.5rem;
+}
 .game-tile__mines {
   font-weight: bold;
 }
