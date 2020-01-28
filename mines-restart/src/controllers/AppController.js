@@ -31,7 +31,7 @@ export default class AppController {
    * @param {?any} url
    */
   main (stream, header, url) {
-    // console.log('AppController::main')
+    console.log('AppController::main')
 
     // stream is a Duplex
     stream.respond({
@@ -40,22 +40,5 @@ export default class AppController {
     })
 
     stream.end(this.#view.render(this.#model))
-  }
-
-  /**
-   * Create a game.
-   * @param {import("http2").ServerHttp2Stream} stream
-   * @param {import("http2").IncomingHttpHeaders} headers
-   * @param {?object} url
-   */
-  createGame (stream, headers, url) {
-    console.log('GameController::createGame')
-
-    stream.respond({
-      ':status': '201',
-      'location': '/game/play'
-    })
-
-    // stream.end()
   }
 }

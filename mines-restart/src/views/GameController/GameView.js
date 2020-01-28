@@ -1,20 +1,19 @@
 // @ts-check
 'use strict'
 
-import BaseView from '../BaseView.js'
+import ViewUtil from '../ViewUtil.js'
 import path from 'path'
 import { nodejs } from 'mines-utils'
 
 // @ts-ignore
 const __dirname = path.dirname(nodejs.filename(import.meta.url))
 
-export default class GameView extends BaseView {
+export default class GameView {
   #view
 
   constructor() {
-    super()
-    this.#view = this.compileTemplate(
-      this.readFile(
+    this.#view = ViewUtil.compileTemplate(
+      ViewUtil.readFile(
         path.join(__dirname, './GameView.htm')))
   }
 

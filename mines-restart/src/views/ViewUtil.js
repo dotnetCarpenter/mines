@@ -6,12 +6,12 @@ import Handlebars from 'handlebars'
 
 Handlebars.registerHelper('json', x => JSON.stringify(x, null, 4))
 
-export default class BaseView {
+export default class ViewUtil {
   /**
    * @param {string} filePath
    * @returns {string}
    */
-  readFile (filePath) {
+  static readFile (filePath) {
     return fs.readFileSync(filePath, 'utf8')
   }
 
@@ -19,7 +19,7 @@ export default class BaseView {
    * @param {string} template
    * @returns {HandlebarsTemplateDelegate}
    */
-  compileTemplate (template) {
+  static compileTemplate (template) {
     return Handlebars.compile(template)
   }
 
@@ -28,7 +28,7 @@ export default class BaseView {
    * @param {string} name The name of the partial
    * @param {string} template
    */
-  registerPartial (name, template) {
+  static registerPartial (name, template) {
     Handlebars.registerPartial(name, template)
   }
 }

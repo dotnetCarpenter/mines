@@ -1,7 +1,5 @@
 // @ts-check
 
-import { logMode } from 'mines-base'
-import log from './log.js'
 import each from './each.js'
 
 /**
@@ -13,10 +11,8 @@ import each from './each.js'
 export default function map(f, list) {
 	const a = new Array(list.length)
 
-	log(logMode.debug, `map called looping ${list.length} times`)
-
 	each((value, index) => {
-		a[index] = value
+		a[index] = f(value, index)
 	}, list)
 
 	return a
