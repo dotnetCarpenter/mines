@@ -1,4 +1,5 @@
 {
   "files.trimTrailingWhitespace": true,
-  "editor.acceptSuggestionOnEnter": "off"
+  "editor.acceptSuggestionOnEnter": "smart",
+  "typescript.tsdk": "/home/dotnet/.config/yarn/global/node_modules/typescript/lib/"
 }

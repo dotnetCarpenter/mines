@@ -9,7 +9,7 @@
       "request": "launch",
       "name": "Restart",
       "program": "${workspaceFolder}/mines-restart/src/services/server.js",
-      "runtimeArgs": ["--experimental-modules"]
+      "runtimeArgs": ["--experimental-modules", "--experimental-json-modules"]
     },
     {
       "type": "node",
