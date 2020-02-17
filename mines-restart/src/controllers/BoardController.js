@@ -2,10 +2,10 @@
 'use strict'
 
 import BoardModel from '../models/BoardModel.js'
+import BoardView from '../views/BoardView/BoardView.js'
 
 export default class BoardController {
-	#view
-	#model
+	model
 
 	/**
 	 * Creates a board with mines
@@ -13,14 +13,11 @@ export default class BoardController {
 	 * @param {number} arg.width
 	 * @param {number} arg.height
 	 * @param {number} arg.mines
+	 * @param {import("../views/ViewUtil").default} arg.ViewUtil
 	 */
-	constructor ({width, height, mines}) {
-    this.#model = new BoardModel(width, height, mines)
-	}
-
-	main (stream) {
-		this.view.render(this.model)
-		return this
+	constructor ({width, height, mines, ViewUtil}) {
+		this.model = new BoardModel(width, height, mines)
+		/* this.#view =  */new BoardView(ViewUtil)
 	}
 
 	fillBoard () {

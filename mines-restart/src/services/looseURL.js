@@ -12,15 +12,26 @@ const TOKEN = {
 }
 
 /**
- * @param {string} input
+ * @typedef URLPath
+ * @property {string} href
+ * @property {string} pathname
+ * @property {string} search
+ * @property {Map<string, string>} searchParams
  */
-export default function parser (input) {
+
+/**
+ * Parses an HTTP path. Does not need to be a full path.
+ * Note: Akin to `new URL()` but much more lenient.
+ * @param {string} input a piece of a welformed URL
+ * @returns {URLPath}
+ */
+export default function parse (input) {
   const ast = lexer(input)
   const url = {
+    href: input,
     pathname: '',
     search: '',
     searchParams: new Map,
-    href: input
   }
 
   each(t => {

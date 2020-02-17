@@ -14,7 +14,7 @@ export default class AppView {
   constructor() {
     ViewUtil.registerPartial('gameTile',
       ViewUtil.readFile(
-        path.join(__dirname, './GameTile.htm')))
+        path.join(__dirname, './GameTilePartial.htm')))
 
     this.#view = ViewUtil.compileTemplate(
       ViewUtil.readFile(

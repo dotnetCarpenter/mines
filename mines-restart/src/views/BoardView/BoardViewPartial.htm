@@ -1,0 +1,26 @@
+{{!--
+{{#with board}}
+<section class="board">
+  {{#each board as |row|}}
+  <div class="board__row">
+    {{#each row as |cell|}}
+    <div class="board__cell">{{cell.value}}</div>
+    {{/each}}
+  </div>
+  {{/each}}
+</section>
+{{/with}}
+--}}
+
+{{#with board}}
+<table class="board {{#if boardSize.l}}board--sm{{/if}} {{#if boardSize.m}}board--m{{/if}}">
+  {{#each board as |row|}}
+  <tr class="board__row">
+    {{#each row as |cell|}}
+    <td class="board__cell">{{cell.value}}</td>
+    {{/each}}
+  </tr>
+  {{/each}}
+</table>
+{{/with}}
+<!-- {{#json .}}{{/json}} -->

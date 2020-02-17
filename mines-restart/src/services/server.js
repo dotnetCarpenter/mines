@@ -7,7 +7,7 @@ import path from 'path'
 import { dirname } from 'path'
 import { partial, nodejs, each } from 'mines-utils'
 import userRoutes from './router.js'
-import parser from './parser.js'
+import parse from './looseURL.js'
 
 
 // @ts-ignore
@@ -25,12 +25,29 @@ const router = createRouter(userRoutes)
 server.on('error', (err) => console.error(err))
 
 server.on('stream', (stream, headers) => {
-  const url = parser(headers[":path"])
-  // console.log('path', url)
-
+  const url = parse(headers[":path"])
   const controller = router.has(url.pathname) ? router.get(url.pathname) : router.get('404')
+  const html = controller.main(stream, headers, url)
 
-  controller.main(stream, headers, url)
+  console.log('path', url)
+
+  if (!stream.headersSent) {
+    const header = {
+      'content-type': 'text/html',
+      // assume ok if controller.main() did not throw
+      ':status': '200',
+      'last-modified': new Date(Date.now()).toUTCString(),
+    }
+
+    if (html) header['content-length'] = Buffer.byteLength(html)
+
+    // stream is a Duplex
+    stream.respond(header)
+  }
+
+  if (html && !stream.writableEnded) {
+    stream.end(html)
+  }
 
   if(!stream.writableEnded) stream.end()
 })
@@ -39,14 +56,26 @@ server.listen(8443)
 console.log('listening on https://localhost:8443')
 
 function createRouter (userRoutes) {
+  /**
+   * @type {Map<string, {
+   *     main(
+   *       stream?: http2.ServerHttp2Stream,
+   *       headers?: http2.IncomingHttpHeaders,
+   *       url?: import("./looseURL").URLPath
+   *     ): (string | void)
+   *   }>
+   * }
+   */
   const router = new Map([
     ['404', {
       main (stream) {
+        const html = '<h1>404 Not found</h1>'
         stream.respond({
           'content-type': 'text/html',
-          ':status': 404
+          ':status': 404,
+          'content-length': Buffer.byteLength(html),
         })
-        stream.end('<h1>404 Not found</h1>')
+        stream.end(html)
       }
     }],
     ['/style.css', {
@@ -65,11 +94,11 @@ function createRouter (userRoutes) {
   ])
 
   if (userRoutes instanceof Map) {
-    // TODO: ts-bug
     userRoutes.forEach((value, key) => router.set(key, value))
   } else if (Array.isArray(userRoutes)) {
-    // TODO: ts-bug
-    each(pair => router.set(...pair), userRoutes)
+    //TODO: ts bug - "Expected 2 arguments, but got 0 or more.ts(2556)" lib.es2015.collection.d.ts(27, 9): An argument for 'key' was not provided
+    each(/** @param {Array.<[string, function]>} pair */
+      pair => router.set(...pair), userRoutes)
   }
 
   return router

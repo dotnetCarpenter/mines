@@ -1,19 +1,15 @@
 // @ts-check
-'use strict'
-
 
 export default class GameModel {
-  #board
+  board
 
-  constructor ({width, height, mines, time = 0}) {
+  constructor ({title, width, height, mines, time = 0}) {
+    this.title = title
     this.width = Number(width)
     this.height = Number(height)
     this.mines = Number(mines)
     this.time = Number(time)
-  }
-
-  setBoard (board) {
-    this.#board = board
+    this.flags = 0
   }
 
   startOver () {}

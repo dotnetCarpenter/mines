@@ -12,6 +12,12 @@ export default class GameView {
   #view
 
   constructor() {
+    this.ViewUtil = ViewUtil
+
+    ViewUtil.registerHelper('toFixed', function(number, decimal) {
+      if (!Number.isInteger(decimal)) decimal = 2
+      return number.toFixed(decimal)
+    });
     this.#view = ViewUtil.compileTemplate(
       ViewUtil.readFile(
         path.join(__dirname, './GameView.htm')))

@@ -31,4 +31,13 @@ export default class ViewUtil {
   static registerPartial (name, template) {
     Handlebars.registerPartial(name, template)
   }
+
+  /**
+   * Register a helper to use with the current view
+   * @param {string} name
+   * @param {import('handlebars').HelperDelegate} f
+   */
+  static registerHelper (name, f) {
+    Handlebars.registerHelper(name, f)
+  }
 }

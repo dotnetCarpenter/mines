@@ -18,6 +18,10 @@ export default class BoardModel {
 	constructor (width, height, mines) {
 		this.mines = mines
 		this.percentageMines = mines / (width * height) * 100
+		this.boardSize = Object.create(null)
+		this.boardSize.l = width * height > 256
+		this.boardSize.m = this.boardSize.l ? false : width * height > 64
+		this.boardSize.s = this.boardSize.l ? false : true
 
 		// const rows = createArray(width, () => new Space(log), log)
 		this.board = createArray(height, () =>
