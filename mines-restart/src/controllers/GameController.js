@@ -4,6 +4,7 @@
 import GameModel from '../models/GameModel.js'
 import GameView from '../views/GameController/GameView.js'
 import BoardController from './BoardController.js'
+import { flatten } from 'mines-utils'
 
 export default class GameController {
   #view
@@ -22,18 +23,28 @@ export default class GameController {
    */
   main (stream, headers, url) {
     console.log('GameController::main')
-    const title = 'Mines'
 
-    this.#model = new GameModel({
-      title,
+    const modelData = {
+      title: 'Mines',
       mines: url.searchParams.get('mines'),
       width: url.searchParams.get('width'),
       height: url.searchParams.get('height')
-    })
+    }
 
+    this.#model = new GameModel(modelData)
     this.setupBoard()
 
-    return this.#view.render(this.#model)
+    const html = this.#view.render(this.#model)
+    const responseHeaders = {
+      'set-cookie': object2cookie(modelData),
+      'content-type': 'text/html',
+      ':status': '200',
+      'last-modified': new Date(Date.now()).toUTCString(),
+      'content-length': Buffer.byteLength(html)
+    }
+
+    stream.respond(responseHeaders)
+    return html
   }
 
   setupBoard () {
@@ -49,4 +60,9 @@ export default class GameController {
       .fillBoard()
       .main(stream, headers, url)
   }
+}
+
+function object2cookie (obj) {
+  return Object.keys(obj)
+    .map(key => `${key}=${obj[key]}`)
 }
