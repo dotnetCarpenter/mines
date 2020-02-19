@@ -4,7 +4,6 @@
 import GameModel from '../models/GameModel.js'
 import GameView from '../views/GameController/GameView.js'
 import BoardController from './BoardController.js'
-import { flatten } from 'mines-utils'
 
 export default class GameController {
   #view
@@ -36,7 +35,7 @@ export default class GameController {
 
     const html = this.#view.render(this.#model)
     const responseHeaders = {
-      'set-cookie': object2cookie(modelData),
+      'set-cookie': object2cookie(modelData, 'Secure; HttpOnly'),
       'content-type': 'text/html',
       ':status': '200',
       'last-modified': new Date(Date.now()).toUTCString(),
@@ -62,7 +61,12 @@ export default class GameController {
   }
 }
 
-function object2cookie (obj) {
+/**
+ * Convert an object map to cookie array
+ * @param {object} obj
+ * @param {string} [amend] Use this to amend expires, max-age and or secure; httpOnly
+ */
+function object2cookie (obj, amend = '') {
   return Object.keys(obj)
-    .map(key => `${key}=${obj[key]}`)
+    .map(key => `${key}=${obj[key]}; ${amend}`)
 }

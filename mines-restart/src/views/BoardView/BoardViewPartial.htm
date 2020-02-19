@@ -13,7 +13,8 @@
 --}}
 
 {{#with board}}
-<table class="board {{#if boardSize.l}}board--sm{{/if}} {{#if boardSize.m}}board--m{{/if}}">
+{{!--{{#json boardSize}}{{/json}}--}}
+<table class="board {{#if boardSize.l}}board--sm{{/if}}{{#if boardSize.m}}board--m{{/if}}{{#if boardSize.s}}board--l{{/if}}">
   {{#each board as |row|}}
   <tr class="board__row">
     {{#each row as |cell|}}
