@@ -6,6 +6,7 @@ import compose from './universal/compose.js'
 import createArray from './universal/createArray.js'
 import curry from './universal/curry.js'
 import each from './universal/each.js'
+import flatten from './universal/flatten.js'
 import log from './universal/log.js'
 import map from './universal/map.js'
 import observable from './universal/observable.js'
@@ -24,6 +25,7 @@ export {
   createArray,
   curry,
   each,
+  flatten,
   log,
   map,
   observable,
