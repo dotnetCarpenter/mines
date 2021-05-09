@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "type": "module",
   "dependencies": {
-    "handlebars": "^4.5.1",
+    "handlebars": "^4.7.7",
     "mines-utils": "1.0.0",
     "mines-base": "1.0.0"
   }
